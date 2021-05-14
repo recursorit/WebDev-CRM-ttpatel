@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 function UserRegistration() {
   return (
     <Row className="justify-content-center mt-5">
-         <code className="text-center  fw-bold display-3 text-dark">
+      <code className="text-center  fw-bold display-3 text-dark">
         Welcome to Registration Page
       </code>
       <Col xs={12} md={7} lg={7} className="register justify-content-center">
@@ -68,14 +68,14 @@ function UserRegistration() {
             </InputGroup>
             <Row className="justify-content-center">
               <Col xs={6} md={2} lg={2}>
-                  <Link to='/dashboard'>
-                <Button
-                  className="text-nowrap text-white mt-3 mb-3"
-                  variant="dark"
-                >
-                  Register
-                </Button>
-                  </Link>
+                <Link to="/dashboard">
+                  <Button
+                    className="text-nowrap text-white mt-3 mb-3"
+                    variant="dark"
+                  >
+                    Register
+                  </Button>
+                </Link>
               </Col>
             </Row>
             <Card.Footer className="bg-white">
