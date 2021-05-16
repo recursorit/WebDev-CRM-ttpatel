@@ -2,7 +2,7 @@
 //-->In this we have used different library like---->react-icons(for including icons in file) and  reaact-bootstrap(for including different bootstrap components.)
 //-->{Link} is used for redirecting users to UserRegistration component.
 
-import React from "react";
+import React, { useState } from "react";
 import { BsLock } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import {
@@ -13,7 +13,43 @@ import {
   InputGroup,
   Card,
 } from "react-bootstrap";
-function userLogin() {
+import { useSelector, useDispatch } from "react-redux";
+import { userLogin } from "./redux/actions";
+import { useHistory } from "react-router-dom";
+
+function UserLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validateemail, setValidateEmail] = useState(false);
+  const [validatepass, setValidatePass] = useState(false);
+  const userList = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const handleLogin = () => {
+    console.log(userList, email, password, userList.length);
+    for (var i = 0; i < userList.length; i++) {
+      if (
+        email === userList[i].email &&
+        password === userList[i].password &&
+        "active" === userList[i].status
+      ) {
+        console.log(userList[i]);
+        console.log(userLogin(userList[i].firstname));
+        dispatch(userLogin(userList[i].firstname));
+        // dispatch({ type: "USER_LOGIN", payload: "Tirth" });
+        history.push("/dashboard");
+        return;
+      } else {
+        console.log("current element is invalid");
+      }
+    }
+    //ERROR
+    if (email === email && password === password) {
+      setValidateEmail(true);
+      setValidatePass(true);
+    }
+  };
+
   return (
     <Row className="justify-content-center mt-5">
       <code className="text-center  fw-bold display-3 text-dark">
@@ -29,7 +65,13 @@ function userLogin() {
                 </Card.Title>
                 <p className=" mx-2">Sign In to your account</p>
                 <InputGroup className="mb-3">
-                  <FormControl placeholder="Email-Id" type="email" />
+                  <FormControl
+                    placeholder="Email-Id"
+                    type="email"
+                    isInvalid={validateemail}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <InputGroup.Text>@example.com</InputGroup.Text>
                 </InputGroup>
                 <InputGroup className="mb-3">
@@ -38,11 +80,28 @@ function userLogin() {
                       <BsLock size="1.5rem" color="red" />
                     </InputGroup.Text>
                   </InputGroup.Prepend>
-                  <FormControl placeholder="Password" type="password" />
+                  <FormControl
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    isInvalid={validatepass}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </InputGroup>
+                {validateemail && validatepass ? (
+                  <Card.Text className="text-danger mb-1">
+                  ***Please enter valid email or password. 
+                  </Card.Text>
+                ) : null}
                 <Row className="justify-content-center">
                   <Col xs={3} md={3} lg={3}>
-                    <Button className="btn-sm btn-dark px-3">Login</Button>
+                    <Button
+                      className="btn-sm btn-dark px-3"
+                      disabled={!email || !password}
+                      onClick={handleLogin}
+                    >
+                      Login
+                    </Button>
                   </Col>
                 </Row>
               </Card.Body>
@@ -61,7 +120,7 @@ function userLogin() {
                   Already a user then continue with Login.
                 </Card.Text>
                 <Row className="justify-content-center">
-                  <Col xs={6} md={3} lg={4}>
+                  <Col xs={5} md={4} lg={4}>
                     <Link to="/register">
                       <Button
                         className="text-nowrap text-white mt-3"
@@ -81,4 +140,4 @@ function userLogin() {
   );
 }
 
-export default userLogin;
+export default UserLogin;
