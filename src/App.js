@@ -6,26 +6,28 @@
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
 import UserLogin from "./UserLogin";
 import UserRegistration from "./UserRegistration";
 import { Switch, Route } from "react-router-dom";
 import UserDashboard from "./UserDashboard";
+import EditUser from './EditUser'
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
-    <Container>
-      <Switch>
-        <Route path="/" exact>
-          <UserLogin />
-        </Route>
-        <Route path="/register">
-          <UserRegistration />
-        </Route>
-        <Route path="/dashboard">
-          <UserDashboard />
-        </Route>
-      </Switch>
-    </Container>
+    <Switch>
+      <Route path="/" exact>
+        <UserLogin />
+      </Route>
+      <Route path="/register">
+        <UserRegistration />
+      </Route>
+      <Route path="/dashboard/:username">
+        <UserDashboard />
+      </Route>
+      <Route path="/edit/:username" >
+        <EditUser />
+      </Route>
+    </Switch>
   );
 }
 

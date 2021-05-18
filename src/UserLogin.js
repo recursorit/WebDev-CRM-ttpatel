@@ -22,11 +22,14 @@ function UserLogin() {
   const [password, setPassword] = useState("");
   const [validateemail, setValidateEmail] = useState(false);
   const [validatepass, setValidatePass] = useState(false);
+
+
   const userList = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const history = useHistory();
+
+
   const handleLogin = () => {
-    console.log(userList, email, password, userList.length);
     for (var i = 0; i < userList.length; i++) {
       if (
         email === userList[i].email &&
@@ -34,22 +37,17 @@ function UserLogin() {
         "active" === userList[i].status
       ) {
         console.log(userList[i]);
-        console.log(userLogin(userList[i].firstname));
-        dispatch(userLogin(userList[i].firstname));
+        // console.log(userLogin(userList[i].firstname));
+        dispatch(userLogin(userList[i]));
         // dispatch({ type: "USER_LOGIN", payload: "Tirth" });
-        history.push("/dashboard");
-        return;
-      } else {
+        history.push(`/dashboard/${email}`);
+      } else{
         console.log("current element is invalid");
+        setValidateEmail(true);
+        setValidatePass(true);
       }
     }
-    //ERROR
-    if (email === email && password === password) {
-      setValidateEmail(true);
-      setValidatePass(true);
-    }
-  };
-
+  }
   return (
     <Row className="justify-content-center mt-5">
       <code className="text-center  fw-bold display-3 text-dark">
@@ -90,7 +88,7 @@ function UserLogin() {
                 </InputGroup>
                 {validateemail && validatepass ? (
                   <Card.Text className="text-danger mb-1">
-                  ***Please enter valid email or password. 
+                    ***Please enter valid email or password.
                   </Card.Text>
                 ) : null}
                 <Row className="justify-content-center">

@@ -25,12 +25,13 @@ function UserRegistration() {
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validate, setValidate] = useState(false);
-  // const [message, setMessage] = useState('')
+  const [emailvalid, setEmailvalid] = useState(false)
+  const [passwordvalid, setPasswordvalid] = useState(false)
+
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleRegister = (event) => {
+  const handleRegister = () => {
     dispatch(
       registerUser({
         firstname: firstname,
@@ -39,22 +40,10 @@ function UserRegistration() {
         password: password,
       })
     );
-    const form = event.currentTarget;
-    setValidate(true);
-    // validateEmail()
-    history.push("/");
+    return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
+      history.push("/") : setPasswordvalid(true))) : setEmailvalid(true)
   };
 
-  // const emailRegex = /\S+@\S+\.\S+/;
-  // const validateEmail = (e) => {
-  //  var het= setEmail(e.target.value)
-  //   debugger
-  //   if (emailRegex.test(het)) {
-  //     setValidate(false)
-  //     setMessage('Please enter a valid email')
-  //   }
-
-  // }
   return (
     <Row className="justify-content-center mt-5">
       <code className="text-center  fw-bold display-3 text-dark">
@@ -65,7 +54,7 @@ function UserRegistration() {
           <Card.Title className="fw-bold fs-2 mx-3 mt-3">Register</Card.Title>
           <Card.Text className="mx-3">Create your account</Card.Text>
           <Card.Body>
-            <Form noValidate validated={validate} className='needs-validation'>
+            <Form noValidate className='needs-validation'>
               <Row>
                 <Col xs={12} lg={6}>
                   <InputGroup
@@ -124,7 +113,7 @@ function UserRegistration() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                {/* {<div className={`message ${validate ? 'success' : 'error'}`}>{message}</div>} */}
+                {emailvalid ? <Card.Text className='text-danger'>Entet valid emailid.</Card.Text> : null}
               </InputGroup>
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
@@ -133,14 +122,12 @@ function UserRegistration() {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
-                  placeholder="Password"
+                  placeholder="Password(*Must be 8-20 characters long.)"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Form.Text id="passwordHelpInline" muted>
-                  ***Must be 8-20 characters long.
-                </Form.Text>
+                {passwordvalid ? <Card.Text className='text-danger'>Entet valid password.</Card.Text> : null}
               </InputGroup>
               <Row className="justify-content-center">
                 <Col xs={6} md={2} lg={2}>

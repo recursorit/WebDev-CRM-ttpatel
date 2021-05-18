@@ -6,7 +6,8 @@ const initialState = [
     lastname: "Patel",
     email: "tt",
     password: "123",
-    registrationDate: new Date(),
+    registrationDate: moment().format('YYYY-MM-DD'),
+    registrationTime: moment().format('h:mm:ss a'),
     role: "admin",
     status: "active",
   },
@@ -15,13 +16,14 @@ const initialState = [
 const registerReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER:
-      console.log("register event called");
+      // console.log("register event called");
       return [
         ...state,
         {
           ...action.payload,
-          role: "users",
-          registrationDate: moment().format("MMMM Do YYYY, h:mm:ss a"),
+          role: "user",
+          registrationDate: moment().format('YYYY-MM-DD'),
+          registrationTime: moment().format('h:mm:ss a'),
           status: "active",
         },
       ];
