@@ -5,8 +5,6 @@ import React, { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
-import { AiFillGithub } from "react-icons/ai";
-import { FiFacebook, FiTwitter } from "react-icons/fi";
 import {
   Row,
   Col,
@@ -38,9 +36,10 @@ function UserRegistration() {
         lastname: lastname,
         email: email,
         password: password,
+        // password: btoa(password),
       })
     );
-    return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
+    return ((email.includes('@' && '.com')) && (email.indexOf('.') < (email.length - 2))) ? (setEmailvalid(false), ((password.length > 5) ?
       history.push("/") : setPasswordvalid(true))) : setEmailvalid(true)
   };
 
@@ -50,7 +49,7 @@ function UserRegistration() {
         Welcome to Registration Page
       </code>
       <Col xs={12} md={7} lg={7} className="register justify-content-center">
-        <Card style={{ width: "100%", height: "27rem" }}>
+        <Card style={{ width: "100%", height: "29rem" }}>
           <Card.Title className="fw-bold fs-2 mx-3 mt-3">Register</Card.Title>
           <Card.Text className="mx-3">Create your account</Card.Text>
           <Card.Body>
@@ -59,7 +58,7 @@ function UserRegistration() {
                 <Col xs={12} lg={6}>
                   <InputGroup
                     className="mb-3"
-                    controlId="validationCustomFirstname"
+
                   >
                     <InputGroup.Prepend>
                       <InputGroup.Text>
@@ -78,11 +77,7 @@ function UserRegistration() {
                   </InputGroup>
                 </Col>
                 <Col xs={12} lg={6}>
-                  <InputGroup
-                    className="mb-3"
-                    controlId="validationCustomLastname"
-                    hasValidation
-                  >
+                  <InputGroup className="mb-3" >
                     <InputGroup.Prepend>
                       <InputGroup.Text>
                         <BiUserCircle size="1.5rem" />
@@ -113,8 +108,8 @@ function UserRegistration() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                {emailvalid ? <Card.Text className='text-danger'>Entet valid emailid.</Card.Text> : null}
               </InputGroup>
+              {emailvalid ? <Card.Text className='text-danger ' >Entet valid emailid.</Card.Text> : null}
               <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                   <InputGroup.Text>
@@ -127,12 +122,12 @@ function UserRegistration() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                {passwordvalid ? <Card.Text className='text-danger'>Entet valid password.</Card.Text> : null}
               </InputGroup>
+              {passwordvalid ? <Card.Text className='text-danger'>Entet valid password.</Card.Text> : null}
               <Row className="justify-content-center">
                 <Col xs={6} md={2} lg={2}>
                   <Button
-                    className="text-nowrap text-white mt-3 mb-3"
+                    className="text-nowrap text-white  mb-3"
                     variant="dark"
                     disabled={!firstname || !lastname || !email || !password}
                     onClick={handleRegister}
@@ -141,25 +136,25 @@ function UserRegistration() {
                   </Button>
                 </Col>
               </Row>
-              <Card.Footer className="bg-white">
+              {/* <Card.Footer className="bg-white">
                 <Row className="justify-content-center">
                   <Col xs={3} lg={2}>
-                    {/* <Button className='btn-sm px-5'> */}
+                    <Button className='btn-sm px-5'>
                     <FiFacebook size="1.5rem" color="blue" />
-                    {/* </Button> */}
+                    </Button>
                   </Col>
                   <Col xs={3} lg={2}>
-                    {/* <Button className='btn-sm px-5'> */}
+                    <Button className='btn-sm px-5'>
                     <AiFillGithub size="1.5rem" />
-                    {/* </Button> */}
+                    </Button>
                   </Col>
                   <Col xs={3} lg={2}>
-                    {/* <Button className='btn-sm px-5'> */}
+                    <Button className='btn-sm px-5'>
                     <FiTwitter size="1.5rem" color="blue" />
-                    {/* </Button> */}
+                    </Button>
                   </Col>
                 </Row>
-              </Card.Footer>
+              </Card.Footer> */}
             </Form>
           </Card.Body>
         </Card>

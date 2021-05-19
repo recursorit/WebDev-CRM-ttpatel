@@ -1,5 +1,7 @@
 export const REGISTER_USER = "REGISTER_USER";
 export const USER_LOGIN = "USER_LOGIN";
+export const UPDATE_USER = 'UPDATE_USER';
+export const EDIT_USER = 'EDIT_USER';
 
 export function registerUser(data) {
   return {
@@ -13,4 +15,18 @@ export function userLogin(data) {
     type: "USER_LOGIN",
     payload: data,
   };
+}
+
+export const updateUser = (data) => {
+  return {
+    type: "UPDATE_USER",
+    payload: data
+  }
+}
+
+export const editAdmin = (data) => {
+  return {
+    type: "EDIT_USER",
+    payload: data
+  }
 }

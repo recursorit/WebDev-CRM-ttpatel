@@ -1,7 +1,7 @@
 import { USER_LOGIN } from "./actions";
 
 const currentUser = {
-  currentuser: '',
+  currentuser: 0,
 };
 
 const loguserReducer = (state = currentUser, action) => {

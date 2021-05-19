@@ -5,14 +5,7 @@
 import React, { useState } from "react";
 import { BsLock } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import {
-  Row,
-  Col,
-  Button,
-  FormControl,
-  InputGroup,
-  Card,
-} from "react-bootstrap";
+import { Row, Col, Button, FormControl, InputGroup, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "./redux/actions";
 import { useHistory } from "react-router-dom";
@@ -24,7 +17,7 @@ function UserLogin() {
   const [validatepass, setValidatePass] = useState(false);
 
 
-  const userList = useSelector((state) => state.users);
+  const userList = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -34,6 +27,7 @@ function UserLogin() {
       if (
         email === userList[i].email &&
         password === userList[i].password &&
+        // password === userList[i].btoa(password) &&
         "active" === userList[i].status
       ) {
         console.log(userList[i]);
@@ -41,7 +35,7 @@ function UserLogin() {
         dispatch(userLogin(userList[i]));
         // dispatch({ type: "USER_LOGIN", payload: "Tirth" });
         history.push(`/dashboard/${email}`);
-      } else{
+      } else {
         console.log("current element is invalid");
         setValidateEmail(true);
         setValidatePass(true);
@@ -70,7 +64,6 @@ function UserLogin() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <InputGroup.Text>@example.com</InputGroup.Text>
                 </InputGroup>
                 <InputGroup className="mb-3">
                   <InputGroup.Prepend>

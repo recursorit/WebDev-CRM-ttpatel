@@ -11,6 +11,7 @@ import UserRegistration from "./UserRegistration";
 import { Switch, Route } from "react-router-dom";
 import UserDashboard from "./UserDashboard";
 import EditUser from './EditUser'
+import Admin from './Admin'
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -21,11 +22,14 @@ function App() {
       <Route path="/register">
         <UserRegistration />
       </Route>
-      <Route path="/dashboard/:username">
+      <Route path="/dashboard">
         <UserDashboard />
       </Route>
-      <Route path="/edit/:username" >
+      <Route path="/edit" >
         <EditUser />
+      </Route>
+      <Route path="/admin" >
+        <Admin />
       </Route>
     </Switch>
   );
