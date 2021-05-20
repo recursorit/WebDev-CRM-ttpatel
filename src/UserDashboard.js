@@ -1,15 +1,20 @@
-import React from "react";
-import { Row, Col, Navbar, Nav, Table, Container, NavDropdown, Card, CardGroup } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Navbar, Nav, Table, Container, NavDropdown, Card, CardGroup, Modal, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from 'react-router';
-import { editAdmin } from './redux/actions'
+import { editAdmin, deleteUser } from './redux/actions'
 import { BiPencil } from "react-icons/bi";
+import { MdCancel, MdDelete } from "react-icons/md";
 const UserDashboard = () => {
 
+  const [modal, setModal] = useState(false)
   const currentUserSelector = useSelector((state) => state.loguser);
   const userList = useSelector((state) => state.users.users);
   const history = useHistory()
-  // const index = userList.indexOf(currentUserSelector.currentuser)
+
+  // const index = userList.findIndex(obj => obj.email === currentUserSelector.currentuser.email)
+
+
   const dispatch = useDispatch()
   console.log(currentUserSelector)
   console.log(userList)
@@ -18,15 +23,18 @@ const UserDashboard = () => {
   console.log(currentUserSelector.currentuser.email)
   console.log(currentUserSelector.currentuser.role)
   console.log(currentUserSelector.currentuser)
+
+
   return (
     <Container fluid className='m-0 p-0'>
       <Navbar className=" bg-dark  p-3" expand='lg'>
         <Navbar.Brand className="text-info fs-4 px-3" href="/#">UsersDashboard</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end">
-          <Nav className=" mr-auto flex-column vertical-nav text-center fs-5 active" variant='tabs' defaultActiveKey='/dashboard'>
+          <Nav className=" mr-auto flex-column vertical-nav text-center fs-5 active" variant='tabs' defaultActiveKey='/dashboard' activeKey="/dashboard">
 
-            <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}`)} className='text-light'>Users</Nav.Link>
+            <Nav.Link onClick={() => history.push(`/dashboard`)} className='text-light'>Users</Nav.Link>
+            {/* <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}`)} className='text-light'>Users</Nav.Link> */}
             <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}/project`)} className='text-light'>Project</Nav.Link>
             <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}/category`)} className='text-light' >Category</Nav.Link>
 
@@ -65,9 +73,8 @@ const UserDashboard = () => {
             </Card.Body>
           </Card>
         </CardGroup>
-
         <Switch>
-          <Route path='/dashboard/:username' exact>
+          <Route path='/dashboard/' exact>
             <p className='text-dark mt-3 fs-2'>Users</p>
             <Table striped bordered responsive className='tableone' >
               <thead>
@@ -80,6 +87,7 @@ const UserDashboard = () => {
                   <th>Status</th>
                   {/* {currentUserSelector.currentuser.role === 'admin' ? <th>Edit</th> : null} */}
                   {userList[0].role === 'admin' ? <th>Edit</th> : null}
+                  {userList[0].role === 'admin' ? <th>Delete</th> : null}
                 </tr>
               </thead>
               <tbody>
@@ -95,6 +103,22 @@ const UserDashboard = () => {
                         <td>{user.status}</td>
                         {/* {userList[index].role === 'admin' ? <th><Button>Edit</Button></th> : console.log(false)} */}
                         {userList[0].role === 'admin' ? <td><BiPencil onClick={() => { return (history.push(`/admin`), dispatch(editAdmin(user.index))) }} /></td> : null}
+                        {userList[0].role === 'admin' ?
+                          <td>{user.role === 'admin' ? <MdCancel /> : <MdDelete onClick={() => setModal(true)} />}</td> : null}
+                        <Modal show={modal} onHide={() => setModal(false)}>
+                          <Modal.Header>
+                            <Modal.Title>Confirm Action?</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            Are you sure you want to delete?
+</Modal.Body>
+                          <Modal.Footer>
+                            <Button className='btn-success' onClick={() => setModal(false)}>
+                              Close
+                                    </Button>
+                            <Button className='btn-danger' onClick={() => { dispatch(deleteUser(user.index)); setModal(false) }}>Delete</Button>
+                          </Modal.Footer>
+                        </Modal>
                       </tr>)
                   })
                 }

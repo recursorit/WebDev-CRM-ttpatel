@@ -1,4 +1,4 @@
-import { REGISTER_USER, UPDATE_USER } from "./actions";
+import { DELETE_USER, REGISTER_USER, UPDATE_USER } from "./actions";
 import moment from "moment";
 
 const initialState = {
@@ -52,6 +52,11 @@ const registerReducer = (state = initialState, action) => {
           }
           return user
         })
+      }
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter(user => user.index !== action.payload)
       }
     default:
       return state;

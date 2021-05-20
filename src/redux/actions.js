@@ -2,6 +2,7 @@ export const REGISTER_USER = "REGISTER_USER";
 export const USER_LOGIN = "USER_LOGIN";
 export const UPDATE_USER = 'UPDATE_USER';
 export const EDIT_USER = 'EDIT_USER';
+export const DELETE_USER = 'DELETE_USER'
 
 export function registerUser(data) {
   return {
@@ -27,6 +28,13 @@ export const updateUser = (data) => {
 export const editAdmin = (data) => {
   return {
     type: "EDIT_USER",
+    payload: data
+  }
+}
+
+export const deleteUser = (data) => {
+  return {
+    type: "DELETE_USER",
     payload: data
   }
 }
