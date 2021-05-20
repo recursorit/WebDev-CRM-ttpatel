@@ -5,7 +5,7 @@ import { updateUser } from './redux/actions'
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
-import { Row, Col, Button, FormControl, InputGroup, Card, Form } from "react-bootstrap";
+import { Row, Col, Button, FormControl, InputGroup, Card, Form,FormLabel } from "react-bootstrap";
 
 
 function EditUser() {
@@ -17,15 +17,16 @@ function EditUser() {
     console.log(currentUserSelector)
     console.log(index)
     const userData = userList[index]
+    console.log(userData)
 
-    const [firstname, setFirstName] = useState(userData.firstname)
-    const [lastname, setLastName] = useState(userData.lastname)
-    const [email, setEmail] = useState(userData.email)
-    const [password, setPassword] = useState(userData.password)
+    const [firstname, setFirstName] = useState(currentUserSelector.currentuser.firstname);
+    const [lastname, setLastName] = useState(currentUserSelector.currentuser.lastname)
+    const [email, setEmail] = useState(currentUserSelector.currentuser.email)
+    const [password, setPassword] = useState(currentUserSelector.currentuser.password)
     const [emailvalid, setEmailvalid] = useState(false)
     const [passwordvalid, setPasswordvalid] = useState(false)
-    const [role,setRole] = useState(userData.role)
-    const [status,setStatus] = useState(userData.status)
+    const [role, setRole] = useState(currentUserSelector.currentuser.role)
+    const [status, setStatus] = useState(currentUserSelector.currentuser.status)
 
     const history = useHistory()
     const dispatch = useDispatch();
@@ -38,18 +39,18 @@ function EditUser() {
                 email: email,
                 password: password,
                 index: index,
-                role:role,
-                status:status
+                role: role,
+                status: status
             })
         );
         return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
-            history.push("/") : setPasswordvalid(true))) : setEmailvalid(true)
+            history.push("/dashboard") : setPasswordvalid(true))) : setEmailvalid(true)
     };
 
     return (
         <Row className="justify-content-center mt-5">
             <Col xs={12} md={7} lg={7} className="register justify-content-center">
-                <Card style={{ width: "100%", height: "20rem" }}>
+                <Card style={{ width: "100%", height: "25rem" }}>
                     <Card.Title className="fw-bold fs-2 mx-3 mt-3">Edit Details</Card.Title>
                     <Card.Body>
                         <Form noValidate className='needs-validation'>
@@ -57,7 +58,7 @@ function EditUser() {
                                 <Col xs={12} lg={6}>
                                     <InputGroup
                                         className="mb-3"
-                                    
+
                                     >
                                         <InputGroup.Prepend>
                                             <InputGroup.Text>
@@ -65,7 +66,6 @@ function EditUser() {
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
                                         <FormControl
-                                            required=''
                                             type="text"
                                             placeholder="Firstname"
                                             autoComplete='off'
@@ -78,7 +78,7 @@ function EditUser() {
                                 <Col xs={12} lg={6}>
                                     <InputGroup
                                         className="mb-3"
-                                       
+
                                         hasValidation
                                     >
                                         <InputGroup.Prepend>
@@ -87,7 +87,6 @@ function EditUser() {
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
                                         <FormControl
-                                            required
                                             type="text"
                                             placeholder="Lastname"
                                             value={lastname}
@@ -111,9 +110,9 @@ function EditUser() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                {emailvalid ? <Card.Text className='text-danger'>Entet valid emailid.</Card.Text> : null}
                                 {/* {<div className={`message ${validate ? 'success' : 'error'}`}>{message}</div>} */}
                             </InputGroup>
+                                {emailvalid ? <Card.Text className='text-danger'>Entet valid emailid.</Card.Text> : null}
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
@@ -126,15 +125,33 @@ function EditUser() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                            </InputGroup>
                                 {passwordvalid ? <Card.Text className='text-danger'>Entet valid password.</Card.Text> : null}
+                            <InputGroup className="mb-3">
+                            <FormLabel className='mx-3 mt-2'>Role-</FormLabel>
+                                <FormControl
+                                    placeholder='Role'
+                                    type="text"
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-3">
+                                <FormLabel className='mx-2 mt-2'>Status-</FormLabel>
+                                <FormControl
+                                    placeholder="Status"
+                                    type="text"
+                                    value={status}
+                                    onChange={(e) => setStatus(e.target.value)}
+                                />
                             </InputGroup>
                             <Row className="justify-content-center">
                                 <Col xs={6} md={2} lg={2}>
                                     <Button
-                                        className="text-nowrap text-white mt-3 mb-3"
+                                        className="text-nowrap text-white  "
                                         variant="dark"
-                                        disabled={!firstname || !lastname || !email || !password}
-                                        onClick={handleRegister}
+                                        disabled={!firstname || !lastname || !email || !password || !role || !status}
+                                        onClick={() => handleRegister()}
                                     >
                                         Confirm
                   </Button>

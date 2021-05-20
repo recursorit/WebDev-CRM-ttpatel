@@ -1,19 +1,19 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
-import { Row, Col, Button, FormControl, InputGroup, Card, Form } from "react-bootstrap";
+import { Row, Col, Button, FormControl, InputGroup, Card, Form,FormLabel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router";
 import { updateUser } from "./redux/actions";
 
 function Admin() {
 
-    
+
     // const currentUserSelector = useSelector((state) => state.loguser);
     const userList = useSelector((state) => state.users.users);
     const history = useHistory()
-    const index = useSelector(state => state.editadmin.index)
+    const index = useSelector(state => state.admin.index)
     const userData = userList[index]
     const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ function Admin() {
     const [role, setRole] = useState(userData.role)
     const [status, setStatus] = useState(userData.status)
 
-    
+
 
     const handleRegister = () => {
         dispatch(
@@ -60,16 +60,13 @@ function Admin() {
                             <Row>
                                 <Col xs={12} lg={6}>
                                     <InputGroup
-                                        className="mb-3"
-                             
-                                    >
+                                        className="mb-3"      >
                                         <InputGroup.Prepend>
                                             <InputGroup.Text>
                                                 <BiUserCircle size="1.5rem" />
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
                                         <FormControl
-                                            required=''
                                             type="text"
                                             placeholder="Firstname"
                                             autoComplete='off'
@@ -82,8 +79,6 @@ function Admin() {
                                 <Col xs={12} lg={6}>
                                     <InputGroup
                                         className="mb-3"
-                                      
-                                        hasValidation
                                     >
                                         <InputGroup.Prepend>
                                             <InputGroup.Text>
@@ -91,7 +86,6 @@ function Admin() {
                                             </InputGroup.Text>
                                         </InputGroup.Prepend>
                                         <FormControl
-                                            required
                                             type="text"
                                             placeholder="Lastname"
                                             value={lastname}
@@ -132,6 +126,7 @@ function Admin() {
                                 {passwordvalid ? <Card.Text className='text-danger'>Entet valid password.</Card.Text> : null}
                             </InputGroup>
                             <InputGroup className="mb-3">
+                            <FormLabel className='mx-3 mt-2'>Role-</FormLabel>
                                 <FormControl
                                     placeholder='Role'
                                     type="text"
@@ -140,6 +135,7 @@ function Admin() {
                                 />
                             </InputGroup>
                             <InputGroup className="mb-3">
+                            <FormLabel className='mx-2 mt-2'>Status-</FormLabel>
                                 <FormControl
                                     placeholder="Status"
                                     type="text"
@@ -151,7 +147,7 @@ function Admin() {
                             <Row className="justify-content-center">
                                 <Col xs={6} md={2} lg={2}>
                                     <Button
-                                        className="text-nowrap text-white mt-3 mb-3"
+                                        className="text-nowrap text-white "
                                         variant="dark"
                                         disabled={!firstname || !lastname || !email || !password || !role || !status}
                                         onClick={handleRegister}

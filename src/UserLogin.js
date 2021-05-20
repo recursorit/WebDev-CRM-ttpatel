@@ -26,11 +26,11 @@ function UserLogin() {
     for (var i = 0; i < userList.length; i++) {
       if (
         email === userList[i].email &&
-        password === userList[i].password &&
-        // password === userList[i].btoa(password) &&
+        // password === userList[i].password &&
+        btoa(password) === userList[i].password &&
         "active" === userList[i].status
       ) {
-        console.log(userList[i]);
+        // console.log(userList[i]);
         // console.log(userLogin(userList[i].firstname));
         dispatch(userLogin(userList[i]));
         // dispatch({ type: "USER_LOGIN", payload: "Tirth" });
@@ -89,7 +89,7 @@ function UserLogin() {
                     <Button
                       className="btn-sm btn-dark px-3"
                       disabled={!email || !password}
-                      onClick={handleLogin}
+                      onClick={()=>handleLogin()}
                     >
                       Login
                     </Button>

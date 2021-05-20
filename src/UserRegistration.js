@@ -35,11 +35,11 @@ function UserRegistration() {
         firstname: firstname,
         lastname: lastname,
         email: email,
-        password: password,
-        // password: btoa(password),
+        // password: password,
+        password: btoa(password),
       })
     );
-    return ((email.includes('@' && '.com')) && (email.indexOf('.') < (email.length - 2))) ? (setEmailvalid(false), ((password.length > 5) ?
+    return ((email.includes('@')) && (email.indexOf('.') < (email.length - 2))) ? (setEmailvalid(false), ((password.length > 5) ?
       history.push("/") : setPasswordvalid(true))) : setEmailvalid(true)
   };
 
@@ -49,7 +49,7 @@ function UserRegistration() {
         Welcome to Registration Page
       </code>
       <Col xs={12} md={7} lg={7} className="register justify-content-center">
-        <Card style={{ width: "100%", height: "29rem" }}>
+        <Card style={{ width: "100%", height: "25rem" }}>
           <Card.Title className="fw-bold fs-2 mx-3 mt-3">Register</Card.Title>
           <Card.Text className="mx-3">Create your account</Card.Text>
           <Card.Body>
