@@ -1,4 +1,4 @@
-import { DELETE_USER, REGISTER_USER, UPDATE_USER } from "./actions";
+import { ADDBY_ADMIN, DELETE_USER, REGISTER_USER, UPDATE_USER } from "./actions";
 import moment from "moment";
 
 const initialState = {
@@ -32,6 +32,17 @@ const registerReducer = (state = initialState, action) => {
           index: state.users.length
         }
         ],
+      }
+    case ADDBY_ADMIN:
+
+      return {
+        ...state,
+        users: [...state.users, {
+          ...action.payload,
+          joined: moment().format('YYYY-MM-DD'),
+          joinedTime: moment().format('h:mm:ss a'),
+          index: state.users.length
+        }]
       }
     case UPDATE_USER:
       return {

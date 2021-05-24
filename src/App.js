@@ -12,6 +12,7 @@ import { Switch, Route } from "react-router-dom";
 import UserDashboard from "./UserDashboard";
 import EditUser from './EditUser'
 import Admin from './Admin'
+import AddByAdmin from './AddByAdmin'
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
       </Route>
       <Route path="/admin" >
         <Admin />
+      </Route>
+      <Route path="/addbyadmin" >
+        <AddByAdmin />
       </Route>
     </Switch>
   );

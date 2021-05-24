@@ -6,7 +6,6 @@
 }
 .register {
   padding-top: 55px;
-
 }
 
 @media (min-width:992px) {    
@@ -38,8 +37,6 @@ padding-left: 20px!important;
 .cardheight{
   height: 5rem;
 }
-/* .tableone{
-} */
 .dropdown{
   padding-left: 120px;
 }

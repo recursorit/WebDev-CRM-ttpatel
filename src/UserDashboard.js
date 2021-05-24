@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from 'react-router';
 import { editAdmin, deleteUser } from './redux/actions'
 import { BiPencil } from "react-icons/bi";
-import { MdCancel, MdDelete } from "react-icons/md";
+import {  MdDelete } from "react-icons/md";
 const UserDashboard = () => {
 
   const [modal, setModal] = useState(false)
@@ -24,6 +24,10 @@ const UserDashboard = () => {
   console.log(currentUserSelector.currentuser.role)
   console.log(currentUserSelector.currentuser)
 
+  const logged = localStorage.getItem("loggedIn")
+  if (logged === "false") {
+    history.push(`/`)
+  }
 
   return (
     <Container fluid className='m-0 p-0'>
@@ -35,8 +39,8 @@ const UserDashboard = () => {
 
             <Nav.Link onClick={() => history.push(`/dashboard`)} className='text-light'>Users</Nav.Link>
             {/* <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}`)} className='text-light'>Users</Nav.Link> */}
-            <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}/project`)} className='text-light'>Project</Nav.Link>
-            <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}/category`)} className='text-light' >Category</Nav.Link>
+            <Nav.Link onClick={() => history.push(`/dashboard/project`)} className='text-light'>Project</Nav.Link>
+            <Nav.Link onClick={() => history.push(`/dashboard/category`)} className='text-light' >Category</Nav.Link>
 
           </Nav>
           <Row>
@@ -104,7 +108,7 @@ const UserDashboard = () => {
                         {/* {userList[index].role === 'admin' ? <th><Button>Edit</Button></th> : console.log(false)} */}
                         {userList[0].role === 'admin' ? <td><BiPencil onClick={() => { return (history.push(`/admin`), dispatch(editAdmin(user.index))) }} /></td> : null}
                         {userList[0].role === 'admin' ?
-                          <td>{user.role === 'admin' ? <MdCancel /> : <MdDelete onClick={() => setModal(true)} />}</td> : null}
+                          <td>{user.role === 'admin' ? <MdDelete /> : <MdDelete onClick={() => setModal(true)} />}</td> : null}
                         <Modal show={modal} onHide={() => setModal(false)}>
                           <Modal.Header>
                             <Modal.Title>Confirm Action?</Modal.Title>
@@ -124,11 +128,14 @@ const UserDashboard = () => {
                 }
               </tbody>
             </Table>
+            {userList[0].role === "admin" ? <Button
+              onClick={() => history.push("/addbyadmin")}
+              variant="outline-dark"> Add Users</Button> : null}
           </Route >
-          <Route path='/dashboard/:username/project' exact>
+          <Route path='/dashboard/project' exact>
             <p className='text-dark mt-3 fs-2'>Project</p>
           </Route>
-          <Route path='/dashboard/:username/category' exact>
+          <Route path='/dashboard/category' exact>
             <p className='text-dark mt-3 fs-2'>Categories</p>
           </Route>
         </Switch>

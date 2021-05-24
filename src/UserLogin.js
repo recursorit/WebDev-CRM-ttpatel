@@ -10,17 +10,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "./redux/actions";
 import { useHistory } from "react-router-dom";
 
+
 function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validateemail, setValidateEmail] = useState(false);
   const [validatepass, setValidatePass] = useState(false);
 
-
+  // const currentUserSelector = useSelector((state) => state.loguser);
   const userList = useSelector((state) => state.users.users);
+  // const userindex = userList.findIndex((obj=>obj.email === email) &&( obj=>obj.password === btoa(password)) )
   const dispatch = useDispatch();
   const history = useHistory();
-
+  // const updateIndex = () => dispatch(currentUserSelector.currentuser.email)
 
   const handleLogin = () => {
     for (var i = 0; i < userList.length; i++) {
@@ -34,21 +36,33 @@ function UserLogin() {
         // console.log(userLogin(userList[i].firstname));
         dispatch(userLogin(userList[i]));
         // dispatch({ type: "USER_LOGIN", payload: "Tirth" });
-        history.push(`/dashboard/${email}`);
-      } else {
+        // (updateIndex(), localStorage.setItem('logged-in', true), localStorage.setItem('currentuser', email),
+        history.push(`/dashboard`);
+        // history.push(`/dashboard/${email}`);
+      }
+
+      else {
         console.log("current element is invalid");
         setValidateEmail(true);
         setValidatePass(true);
       }
     }
   }
+  // useEffect(() => {
+  //   const logged = localStorage.getItem("loggedIn")
+  //   if (logged !== "true") {
+  //     history.push(`/dashboard`)
+  //   }
+  // }, [history])
+
+
   return (
     <Row className="justify-content-center mt-5">
       <code className="text-center  fw-bold display-3 text-dark">
         Welcome to Login Page
       </code>
       <Col xs={12} md={6} lg={8} className="login">
-        <Card style={{ width: "100%", height: "18rem" }}>
+        <Card style={{ width: "100%", height: "20rem" }}>
           <Row>
             <Col xs={12} md={6} lg={6}>
               <Card.Body>
@@ -65,6 +79,11 @@ function UserLogin() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
+                {validateemail ? (
+                  <Card.Text className="text-danger mb-1">
+                    *Please enter valid email.
+                  </Card.Text>
+                ) : null}
                 <InputGroup className="mb-3">
                   <InputGroup.Prepend>
                     <InputGroup.Text>
@@ -79,9 +98,9 @@ function UserLogin() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </InputGroup>
-                {validateemail && validatepass ? (
+                {validatepass ? (
                   <Card.Text className="text-danger mb-1">
-                    ***Please enter valid email or password.
+                    *Please enter valid password.
                   </Card.Text>
                 ) : null}
                 <Row className="justify-content-center">
@@ -89,7 +108,7 @@ function UserLogin() {
                     <Button
                       className="btn-sm btn-dark px-3"
                       disabled={!email || !password}
-                      onClick={()=>handleLogin()}
+                      onClick={() => handleLogin()}
                     >
                       Login
                     </Button>
@@ -100,7 +119,7 @@ function UserLogin() {
             <Col xs={12} md={6} lg={6}>
               <Card.Body
                 className="bg-secondary text-white"
-                style={{ height: "18rem" }}
+                style={{ height: "20rem" }}
               >
                 <Card.Title className="text-center mt-3 fs-3">
                   Sign up
