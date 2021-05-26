@@ -7,7 +7,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
 import { Row, Col, Button, FormControl, InputGroup, Card, Form, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { registerUser } from "./redux/actions";
+import { registerUser,storeUser } from "./redux/actions";
 import { useHistory } from "react-router-dom";
 
 function UserRegistration() {
@@ -24,18 +24,18 @@ function UserRegistration() {
   const history = useHistory();
 
   const handleRegister = () => {
-    dispatch(
-      registerUser({
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        confirmpassword: btoa(password),
-        password: btoa(password),
-      })
-    );
+
 
     return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5) && (password.match(confirmpassword))) ?
-      history.push("/") : setPasswordvalid(true))) : setEmailvalid(true)
+      (history.push("/"), dispatch(
+        registerUser({
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          confirmpassword: btoa(password),
+          password: btoa(password),
+        })
+      ),dispatch(storeUser())) : setPasswordvalid(true))) : setEmailvalid(true)
   };
   useEffect(() => {
     if (confirmpassword !== password) {

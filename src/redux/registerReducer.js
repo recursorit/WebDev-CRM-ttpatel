@@ -1,25 +1,31 @@
-import { ADDBY_ADMIN, DELETE_USER, REGISTER_USER, UPDATE_USER } from "./actions";
+import { ADDBY_ADMIN, deleteUser, DELETE_USER, REGISTER_USER, UPDATE_USER, STORE_USER } from "./actions";
 import moment from "moment";
 
-const initialState = {
-  users: [
+const initialState = { users: JSON.parse(localStorage.getItem('usersList')) }
+if (initialState.users == undefined) {
+  initialState.users = [
     {
       firstname: "Tirth",
       lastname: "Patel",
       email: "tt",
       password: btoa("123"),
       registrationDate: moment().format('YYYY-MM-DD'),
-      registrationTime: moment().format('h:mm:ss a'),
+      registrationTime: moment().format('hh:mm:ss a'),
       role: "admin",
       status: "active",
       index: 0
-    },
+    }
+
   ]
+
 }
+
+
 const registerReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER:
       // console.log("register event called");
+
       return {
         ...state,
         users: [...state.users,
@@ -33,14 +39,17 @@ const registerReducer = (state = initialState, action) => {
         }
         ],
       }
+    case STORE_USER:
+      localStorage.setItem('usersList', JSON.stringify(state.users))
+      return state
     case ADDBY_ADMIN:
 
       return {
         ...state,
         users: [...state.users, {
           ...action.payload,
-          joined: moment().format('YYYY-MM-DD'),
-          joinedTime: moment().format('h:mm:ss a'),
+          registrationDate: moment().format('YYYY-MM-DD'),
+          registrationTime: moment().format('h:mm:ss a'),
           index: state.users.length
         }]
       }
@@ -53,7 +62,7 @@ const registerReducer = (state = initialState, action) => {
               firstname: action.payload.firstname,
               lastname: action.payload.lastname,
               email: action.payload.email,
-              password: action.payload.password,
+              password: btoa(action.payload.password),
               registrationDate: moment().format('YYYY-MM-DD'),
               registrationTime: moment().format('h:mm:ss a'),
               index: action.payload.index,

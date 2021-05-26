@@ -4,6 +4,8 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const EDIT_USER = 'EDIT_USER';
 export const DELETE_USER = 'DELETE_USER'
 export const ADDBY_ADMIN = "ADDBY_ADMIN"
+export const STORE_USER = 'STORE_USER'
+
 export function registerUser(data) {
   return {
     type: "REGISTER_USER",
@@ -43,5 +45,11 @@ export const addbyadmin = (data) => {
   return {
     type: 'ADDBY_ADMIN',
     payload: data
+  }
+}
+
+export const storeUser = () => {
+  return {
+    type: 'STORE_USER',
   }
 }

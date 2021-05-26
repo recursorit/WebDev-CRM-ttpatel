@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
-import { Row, Col, Button, FormControl, InputGroup, Card, Alert,  Nav, Navbar, Container, NavDropdown, Form } from "react-bootstrap";
+import { Row, Col, Button, FormControl, InputGroup, Card, Alert, Nav, Navbar, Container, NavDropdown, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { updateUser } from "./redux/actions";
+import { updateUser,storeUser } from "./redux/actions";
 import { Route, Switch } from 'react-router';
 import { BiPencil } from "react-icons/bi";
 
@@ -44,14 +44,15 @@ function Admin() {
                 status: status
             })
         );
+        dispatch(storeUser())
         return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
-            history.push("/") : setPasswordvalid(true))) : setEmailvalid(true)
+            history.push("/dashboard") : setPasswordvalid(true))) : setEmailvalid(true)
     };
 
-    const logged = localStorage.getItem("loggedIn")
-    if (logged === "false") {
-        history.push(`/`)
-    }
+    // const logged = localStorage.getItem("loggedIn")
+    // if (logged === "false") {
+    //     history.push(`/`)
+    // }
     return (
         <Container fluid className='m-0 p-0'>
             <Navbar className=" bg-dark  p-3" expand='lg'>

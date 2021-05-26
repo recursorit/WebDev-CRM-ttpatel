@@ -2,27 +2,38 @@
 //-->In this we have used different library like---->react-icons(for including icons in file) and  reaact-bootstrap(for including different bootstrap components.)
 //-->{Link} is used for redirecting users to UserRegistration component.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsLock } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Row, Col, Button, FormControl, InputGroup, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { userLogin } from "./redux/actions";
+import { updateUser, userLogin } from "./redux/actions";
 import { useHistory } from "react-router-dom";
 
 
 function UserLogin() {
+  //Checking localStorage
+  var user = localStorage.getItem("currentUser")
+
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  // const currentUserSelector = useSelector((state) => state.loguser);
+  // console.log(user)
+  if (user != undefined) {
+    console.log("inside IDFFF")
+    dispatch(userLogin(JSON.parse(user)));
+    history.push(`/dashboard`);
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validateemail, setValidateEmail] = useState(false);
   const [validatepass, setValidatePass] = useState(false);
 
-  // const currentUserSelector = useSelector((state) => state.loguser);
   const userList = useSelector((state) => state.users.users);
-  // const userindex = userList.findIndex((obj=>obj.email === email) &&( obj=>obj.password === btoa(password)) )
-  const dispatch = useDispatch();
-  const history = useHistory();
-  // const updateIndex = () => dispatch(currentUserSelector.currentuser.email)
+  // const updateIndex = () => dispatch(updateUser(currentUserSelector.currentuser))
+
 
   const handleLogin = () => {
     for (var i = 0; i < userList.length; i++) {
@@ -32,28 +43,21 @@ function UserLogin() {
         btoa(password) === userList[i].password &&
         "active" === userList[i].status
       ) {
-        // console.log(userList[i]);
-        // console.log(userLogin(userList[i].firstname));
+        // eslint-disable-next-line
         dispatch(userLogin(userList[i]));
-        // dispatch({ type: "USER_LOGIN", payload: "Tirth" });
-        // (updateIndex(), localStorage.setItem('logged-in', true), localStorage.setItem('currentuser', email),
-        history.push(`/dashboard`);
-        // history.push(`/dashboard/${email}`);
-      }
+        localStorage.setItem('currentUser', JSON.stringify(userList[i]));
 
+        // updateIndex(), localStorage.setItem('logged-in', true), localStorage.setItem('currentuser', email),
+        history.push(`/dashboard`);
+      }
       else {
-        console.log("current element is invalid");
-        setValidateEmail(true);
-        setValidatePass(true);
+        // eslint-disable-next-line
+        setValidateEmail(true),
+          setValidatePass(true)
       }
     }
   }
-  // useEffect(() => {
-  //   const logged = localStorage.getItem("loggedIn")
-  //   if (logged !== "true") {
-  //     history.push(`/dashboard`)
-  //   }
-  // }, [history])
+
 
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { updateUser } from './redux/actions'
+import { updateUser,storeUser } from './redux/actions'
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
@@ -46,6 +46,7 @@ function EditUser() {
                 status: status
             })
         );
+        dispatch(storeUser())
         return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
             history.push("/dashboard") : setPasswordvalid(true))) : setEmailvalid(true)
     };
