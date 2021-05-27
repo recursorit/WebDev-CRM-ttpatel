@@ -1,7 +1,8 @@
-import { ADDBY_ADMIN, deleteUser, DELETE_USER, REGISTER_USER, UPDATE_USER, STORE_USER } from "./actions";
+import { ADDBY_ADMIN, DELETE_USER, REGISTER_USER, UPDATE_USER, STORE_USER } from "./actions";
 import moment from "moment";
 
 const initialState = { users: JSON.parse(localStorage.getItem('usersList')) }
+// eslint-disable-next-line
 if (initialState.users == undefined) {
   initialState.users = [
     {
@@ -50,7 +51,8 @@ const registerReducer = (state = initialState, action) => {
           ...action.payload,
           registrationDate: moment().format('YYYY-MM-DD'),
           registrationTime: moment().format('h:mm:ss a'),
-          index: state.users.length
+          index: state.users.length,
+          password: btoa(action.payload.password),
         }]
       }
     case UPDATE_USER:

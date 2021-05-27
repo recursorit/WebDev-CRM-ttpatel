@@ -2,34 +2,32 @@ import React, { useState } from "react";
 import { Row, Col, Navbar, Nav, Table, Container, NavDropdown, Card, CardGroup, Modal, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from 'react-router';
-import { editAdmin, deleteUser, userLogin } from './redux/actions'
+import { editAdmin, deleteUser, storeUser } from './redux/actions'
 import { BiPencil } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 const UserDashboard = () => {
   const history = useHistory()
-  const [modal, setModal] = useState(false)
-
-  // var currentUserSelector1 = useSelector((state) => state.loguser);
-  // console.log(user)
-  // console.log(currentUserSelector1.currentuser)
-  // if (currentUserSelector1.currentuser == 0) {
-  //   console.log('in if block')
-  //   history.push('/')
-  // }
-  // console.log('if passed --problem here')
-  const userList = useSelector((state) => state.users.users);
-
   const dispatch = useDispatch()
+
+  var currentUserSelector = useSelector((state) => state.loguser);
+    // eslint-disable-next-line
+   if (currentUserSelector.currentuser == 0) {
+    history.push('/')
+  }
+  
+
+  const [modal, setModal] = useState(false)
+  let userList = useSelector((state) => state.users.users);
+
+  
+
   // const index = useSelector(state => state.index.currentuser)
   // const index = userList.findIndex(obj => obj.email === currentUserSelector.currentuser.email)
-  const index = useSelector(state => state.index)
-  // prevents from refresh 
-  var user = localStorage.getItem("currentUser")
-  if (user != undefined) {
-    dispatch(userLogin(JSON.parse(user)));
-  }
+  let index = useSelector(state => state.index)
+  // prevents from refresh -----------------
+
   // console.log('outside')
-  const currentUserSelector = useSelector((state) => state.loguser);
+
   console.log(currentUserSelector)
   console.log(userList)
   console.log(index)
@@ -53,9 +51,9 @@ const UserDashboard = () => {
 
           </Nav>
           <Row>
-            <Col xs={2} className='p-0'>
-              <Nav >
-                <NavDropdown className='dropdown' title={currentUserSelector.currentuser.firstname} bsPrefix="text-info mx-5 px-5">
+            <Col xs={8} className='p-0'>
+              <Nav className='dropdown'>
+                <NavDropdown title={currentUserSelector.currentuser.firstname} bsPrefix="text-info mx-2 px-2">
                   {/* <NavDropdown.Item onClick={() => history.push(`/edit`)}> <BiPencil size='1.3rem' className='mx-1' />{currentUserSelector.currentuser.email} </NavDropdown.Item>  */}
                   {/* <NavDropdown.Divider />  */}
                   <NavDropdown.Item onClick={() => { history.push('/'); localStorage.removeItem("currentUser") }}>Logout</NavDropdown.Item>
@@ -68,7 +66,7 @@ const UserDashboard = () => {
       <Col xs={10} lg={12} className='table' >
         <Switch>
           <Route path='/dashboard' exact>
-            <CardGroup className=' text-dark cardstyle' style={{ width: '90%' }}>
+            <CardGroup className=' text-dark cardstyle' style={{ width: '100%' }}>
               <Card className='bg-light mt-3 mx-3 cardheight' >
                 <Card.Body >
                   <Card.Title>Number of Users</Card.Title>
@@ -91,7 +89,7 @@ const UserDashboard = () => {
           </Route>
           <Route path='/dashboard/users' exact>
             <p className='text-dark mt-3 fs-2'>Users</p> {userList[0].role === 'admin' ? <Button className='mb-2' variant="outline-dark" onClick={() => history.push('/addbyadmin')}>Add User</Button> : null}
-            <Table striped bordered hover responsive className='tableone' >
+            <Table striped bordered hover responsive className='tableone mt-2' >
               <thead>
                 <tr>
                   <th> Name</th>
@@ -99,17 +97,16 @@ const UserDashboard = () => {
                   <th>DOJ</th>
                   <th>Role</th>
                   <th>Status</th>
-                  {/* {currentUserSelector.currentuser.role === 'admin' ? <th>Edit</th> : null} 
-     {userList[0].role === 'admin' ? <th>Edit</th> : null}  */}
                   <th>Edit</th>
                   {userList[0].role === 'admin' ? <th>Delete</th> : null}
                 </tr>
               </thead>
               <tbody>
                 {
+
                   userList.map(user => {
                     return (
-                      <tr key={user}>
+                      <tr key={user.index}>
                         <td>{user.firstname} {user.lastname}</td>
                         <td>{user.email}</td>
                         <td>{user.registrationDate}</td>
@@ -129,12 +126,14 @@ const UserDashboard = () => {
                             <Button className='btn-success' onClick={() => setModal(false)}>
                               Close
                                     </Button>
-                            <Button className='btn-danger' onClick={() => { dispatch(deleteUser(user.index)); setModal(false) }}>Delete</Button>
+                            <Button className='btn-danger' onClick={() => { dispatch(deleteUser(user.index)); dispatch(storeUser()); setModal(false) }}>Delete</Button>
                           </Modal.Footer>
                         </Modal>
                       </tr>)
                   })
+
                 }
+
               </tbody>
             </Table>
 
@@ -154,3 +153,6 @@ const UserDashboard = () => {
 
 
 export default UserDashboard;
+// eslint-disable-next-line
+{/* {currentUserSelector.currentuser.role === 'admin' ? <th>Edit</th> : null} 
+     {userList[0].role === 'admin' ? <th>Edit</th> : null}  */}

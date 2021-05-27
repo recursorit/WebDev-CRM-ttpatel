@@ -2,12 +2,12 @@
 //-->In this we have used different library like---->react-icons(for including icons in file) and  reaact-bootstrap(for including different bootstrap components.)
 //-->{Link} is used for redirecting users to UserRegistration component.
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BsLock } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Row, Col, Button, FormControl, InputGroup, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser, userLogin } from "./redux/actions";
+import {  userLogin } from "./redux/actions";
 import { useHistory } from "react-router-dom";
 
 
@@ -20,6 +20,7 @@ function UserLogin() {
   const history = useHistory();
   // const currentUserSelector = useSelector((state) => state.loguser);
   // console.log(user)
+  // eslint-disable-next-line
   if (user != undefined) {
     console.log("inside IDFFF")
     dispatch(userLogin(JSON.parse(user)));

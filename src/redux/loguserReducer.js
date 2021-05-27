@@ -1,8 +1,10 @@
 import { USER_LOGIN } from "./actions";
 
-const currentUser = {
-  currentuser: 0,
-};
+const currentUser = { currentuser: JSON.parse(localStorage.getItem('currentUser')) }
+// eslint-disable-next-line
+if (currentUser.currentuser == undefined) {
+  currentUser.currentuser = 0;
+}
 
 const loguserReducer = (state = currentUser, action) => {
   switch (action.type) {

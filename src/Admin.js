@@ -5,9 +5,9 @@ import { BsLock } from "react-icons/bs";
 import { Row, Col, Button, FormControl, InputGroup, Card, Alert, Nav, Navbar, Container, NavDropdown, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { updateUser,storeUser } from "./redux/actions";
+import { updateUser, storeUser } from "./redux/actions";
 import { Route, Switch } from 'react-router';
-import { BiPencil } from "react-icons/bi";
+
 
 function Admin() {
 
@@ -31,22 +31,20 @@ function Admin() {
     const [status, setStatus] = useState(userData.status)
 
 
-
     const handleRegister = () => {
-        dispatch(
-            updateUser({
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                password: btoa(password),
-                index: index,
-                role: role,
-                status: status
-            })
-        );
-        dispatch(storeUser())
-        return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
-            history.push("/dashboard") : setPasswordvalid(true))) : setEmailvalid(true)
+        return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5)) ?
+            (history.push("/"), dispatch(
+                updateUser({
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    confirmpassword: btoa(password),
+                    password: btoa(password),
+                    index: index,
+                    role: role,
+                    status: status
+                })
+            ), dispatch(storeUser())) : setPasswordvalid(true))) : setEmailvalid(true)
     };
 
     // const logged = localStorage.getItem("loggedIn")
@@ -56,12 +54,12 @@ function Admin() {
     return (
         <Container fluid className='m-0 p-0'>
             <Navbar className=" bg-dark  p-3" expand='lg'>
-                <Navbar.Brand className="text-info fs-4 px-3" href="/#">UsersDashboard</Navbar.Brand>
+                <Navbar.Brand className="text-info fs-4 px-3" href="/#">Welcome(admin)</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav className=" mr-auto flex-column vertical-nav text-center fs-5 active" variant='tabs' defaultActiveKey='/dashboard' activeKey="/dashboard">
-
-                        <Nav.Link onClick={() => history.push(`/dashboard`)} className='text-light'>Users</Nav.Link>
+                        <Nav.Link onClick={() => history.push(`/dashboard`)} className='text-light'>UserDashboard</Nav.Link>
+                        <Nav.Link onClick={() => history.push(`/dashboard/users`)} className='text-light'>Users</Nav.Link>
                         {/* <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}`)} className='text-light'>Users</Nav.Link> */}
                         <Nav.Link onClick={() => history.push(`/dashboard/project`)} className='text-light'>Project</Nav.Link>
                         <Nav.Link onClick={() => history.push(`/dashboard/category`)} className='text-light' >Category</Nav.Link>
@@ -71,8 +69,8 @@ function Admin() {
                         <Col xs={2} className='p-0'>
                             <Nav >
                                 <NavDropdown className='dropdown' title={currentUserSelector.currentuser.firstname} bsPrefix="text-info mx-5">
-                                    <NavDropdown.Item onClick={() => history.push(`/edit`)}> <BiPencil size='1.3rem' className='mx-1' />{currentUserSelector.currentuser.email} </NavDropdown.Item>
-                                    <NavDropdown.Divider />
+                                    {/* <NavDropdown.Item onClick={() => history.push(`/edit`)}> <BiPencil size='1.3rem' className='mx-1' />{currentUserSelector.currentuser.email} </NavDropdown.Item>
+                                    <NavDropdown.Divider /> */}
                                     <NavDropdown.Item onClick={() => history.push('/')}>Logout</NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
@@ -81,26 +79,6 @@ function Admin() {
                 </Navbar.Collapse>
             </Navbar>
             <Col xs={10} lg={12} className='table' >
-                {/* <CardGroup className=' text-dark cardstyle' style={{ width: '90%' }}>
-                    <Card className='bg-light mt-3 mx-3 cardheight' >
-                        <Card.Body >
-                            <Card.Title>Number of Users</Card.Title>
-                            <Card.Text>{userList.length}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className='bg-light mt-3 mx-3  cardheight' >
-                        <Card.Body>
-                            <Card.Title>Number of Projects</Card.Title>
-                            <Card.Text>1</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className='bg-light mt-3 mx-3 cardheight'>
-                        <Card.Body>
-                            <Card.Title>Total Category</Card.Title>
-                            <Card.Text>1</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </CardGroup> */}
                 <Switch>
                     <Route path='/dashboard/' exact>
                         <p className='text-dark mt-3 fs-2'>Users</p>
@@ -117,11 +95,10 @@ function Admin() {
 
             <Row className="justify-content-center ">
                 <h2 className="text-center  fw-bold  text-dark">
-                    admin edit
+                    Edit
         </h2>
-                <Col xs={12} md={7} lg={7} className="register justify-content-center">
-                    <Card style={{ width: "100%", height: "31rem" }}>
-                        {/* <Card.Title className="fw-bold fs-2 mx-3 mt-3">Edit{userData.email}</Card.Title> */}
+                <Col xs={10} md={7} lg={5} className="register justify-content-center">
+                    <Card style={{ width: "130%", height: "31rem" }}>
                         <Card.Title className="fw-bold fs-2 mx-3 mt-3">Edit</Card.Title>
                         {emailvalid || passwordvalid ? <Alert variant='danger'>*Please enter valid email & password .</Alert> : null}
                         <Card.Body>
@@ -247,7 +224,7 @@ function Admin() {
 
                                 </InputGroup> */}
                                 <Row className="justify-content-center">
-                                    <Col xs={6} md={2} lg={2}>
+                                    <Col xs={4} md={2} lg={2}>
                                         <Button
                                             className="text-nowrap text-white "
                                             variant="dark"

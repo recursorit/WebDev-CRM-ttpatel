@@ -33,23 +33,6 @@ function Admin() {
     const [confirmvalid, setConfirmvalid] = useState(false)
 
     const handleRegister = () => {
-
-        // return email.includes('@' && '.com') ? (setEmailvalid(false), ((password.length > 5) ?
-        //     history.push("/dashboard") : setPasswordvalid(true))) : setEmailvalid(true)
-        // dispatch(
-        //     addbyadmin({
-        //         firstname: firstname,
-        //         lastname: lastname,
-        //         email: email,
-        //         password: btoa(password),
-        //         index: index,
-        //         role: role,
-        //         status: status
-        //     })
-        //     );
-
-        // };
-        // dispatch(storeUser())
         return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5) && (password.match(confirmpassword))) ?
             (history.push("/"), dispatch(
                 addbyadmin({
@@ -75,13 +58,12 @@ function Admin() {
     return (
         <Container fluid className='m-0 p-0'>
             <Navbar className=" bg-dark  p-3" expand='lg'>
-                <Navbar.Brand className="text-info fs-4 px-3" href="/#">UsersDashboard</Navbar.Brand>
+                <Navbar.Brand className="text-info fs-4 px-3" href="/#">Welcome(admin)</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav className=" mr-auto flex-column vertical-nav text-center fs-5 active" variant='tabs' defaultActiveKey='/dashboard' activeKey="/dashboard">
-
-                        <Nav.Link onClick={() => history.push(`/dashboard`)} className='text-light'>Users</Nav.Link>
-                        {/* <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}`)} className='text-light'>Users</Nav.Link> */}
+                        <Nav.Link onClick={() => history.push(`/dashboard`)} className='text-light'>UserDashboard</Nav.Link>
+                        <Nav.Link onClick={() => history.push(`/dashboard/users`)} className='text-light'>Users</Nav.Link>
                         <Nav.Link onClick={() => history.push(`/dashboard/project`)} className='text-light'>Project</Nav.Link>
                         <Nav.Link onClick={() => history.push(`/dashboard/category`)} className='text-light' >Category</Nav.Link>
 
@@ -99,7 +81,7 @@ function Admin() {
                     </Row>
                 </Navbar.Collapse>
             </Navbar>
-            <Col xs={10} lg={12} className='table' >
+            <Col xs={12} lg={12} className='table' >
                 <Switch>
                     <Route path='/dashboard/' exact>
                         <p className='text-dark mt-3 fs-2'>Users</p>
@@ -111,16 +93,13 @@ function Admin() {
                         <p className='text-dark mt-3 fs-2'>Categories</p>
                     </Route>
                 </Switch>
-
             </Col>
-
             <Row className="justify-content-center ">
                 <h2 className="text-center  fw-bold  text-dark">
-                    add by admin
+                    Add by Admin
         </h2>
-                <Col xs={12} md={7} lg={7} className="register justify-content-center">
-                    <Card style={{ width: "100%", height: "31rem" }}>
-                        {/* <Card.Title className="fw-bold fs-2 mx-3 mt-3">Edit{userData.email}</Card.Title> */}
+                <Col xs={10} md={5} lg={5} className="register justify-content-center">
+                    <Card style={{ width: "130%", height: "32rem" }}>
                         <Card.Title className="fw-bold fs-2 mx-3 mt-3">New User</Card.Title>
                         {emailvalid || passwordvalid ? <Alert variant='danger'>*Please enter valid email & password .</Alert> : null}
                         <Card.Body>
@@ -128,7 +107,7 @@ function Admin() {
                                 <Row>
                                     <Col xs={12} lg={6}>
                                         <InputGroup
-                                            className="mb-3"      >
+                                            className="mb-2"      >
                                             <InputGroup.Prepend>
                                                 <InputGroup.Text>
                                                     <BiUserCircle size="1.5rem" />
@@ -210,60 +189,39 @@ function Admin() {
                                     />
                                 </InputGroup>
                                 {confirmvalid ? <Card.Text className='text-danger'>Enterd password does not match.</Card.Text> : null}
-                                {/* <InputGroup className="mb-3">
-                                    <FormLabel className='mx-3 mt-2'>Role-</FormLabel>
-                                    <FormControl
-                                        placeholder='Role'
+
+                                <Form.Group >
+                                    <Form.Label>Role-</Form.Label>
+                                    <Form.Control as="select"
                                         type="text"
                                         value={role}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                </InputGroup> */}
-                                <Form>
-                                    <Form.Group >
-                                        <Form.Label>Role-</Form.Label>
-                                        <Form.Control as="select"
-                                            type="text"
-                                            value={role}
-                                            onChange={(e) => setRole(e.target.value)} custom>
-                                            <option></option>
-                                            <option>admin</option>
-                                            <option>user</option>
-                                        </Form.Control>
-                                    </Form.Group>
-                                </Form>
-                                <Form>
-                                    <Form.Group >
-                                        <Form.Label>Status-</Form.Label>
+                                        onChange={(e) => setRole(e.target.value)} custom>
+                                        <option></option>
+                                        <option>admin</option>
+                                        <option>user</option>
+                                    </Form.Control>
+                                </Form.Group>
 
-                                        <Form.Check
-                                            type="radio"
-                                            value={status}
-                                            label='active'
-                                            onChange={() => setStatus('active')}>
-                                        </Form.Check>
-                                        <Form.Check
-                                            type="radio"
-                                            value={status}
-                                            label='busy'
-                                            onChange={() => setStatus('busy')}>
-                                        </Form.Check>
+                                <Form.Group >
+                                    <Form.Label>Status-</Form.Label>
 
-                                    </Form.Group>
-                                </Form>
-
-                                {/* <InputGroup className="mb-3">
-                                    <FormLabel className='mx-2 mt-2'>Status-</FormLabel>
-                                    <FormControl
-                                        placeholder="Status"
-                                        type="text"
+                                    <Form.Check
+                                        type="radio"
                                         value={status}
-                                        onChange={(e) => setStatus(e.target.value)}
-                                    />
+                                        label='active'
+                                        onChange={() => setStatus('active')}>
+                                    </Form.Check>
+                                    <Form.Check
+                                        type="radio"
+                                        value={status}
+                                        label='busy'
+                                        onChange={() => setStatus('busy')}>
+                                    </Form.Check>
 
-                                </InputGroup> */}
+                                </Form.Group>
+
                                 <Row className="justify-content-center">
-                                    <Col xs={6} md={2} lg={2}>
+                                    <Col xs={3} md={2} lg={2}>
                                         <Button
                                             className="text-nowrap text-white "
                                             variant="dark"
@@ -271,7 +229,7 @@ function Admin() {
                                             onClick={handleRegister}
                                         >
                                             Add
-                    </Button>
+                                   </Button>
                                     </Col>
                                 </Row>
                             </Form>
