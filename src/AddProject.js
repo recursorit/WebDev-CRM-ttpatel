@@ -7,7 +7,7 @@ import { addProject } from './redux/projectAction'
 
 const AddProject = () => {
     var currentUserSelector = useSelector((state) => state.loguser);
-    const [project, setProject] = useState("")
+    const [projectname, setProject] = useState("")
     const [developer, setDeveloper] = useState("")
     const [category, setCategory] = useState("")
 
@@ -70,7 +70,7 @@ const AddProject = () => {
                 </Form.Label>
                                     <Col sm="12">
                                         <Form.Control type="text" placeholder="Projectname"
-                                            value={project} onChange={e => setProject(e.target.value)} />
+                                            value={projectname} onChange={e => setProject(e.target.value)} />
                                     </Col>
                                 </Form.Group>
 
@@ -104,9 +104,9 @@ const AddProject = () => {
                                     </Col>
                                 </Form.Group>
 
-                                <Button disabled={!project || !developer || !category}
+                                <Button disabled={!projectname || !developer || !category}
                                     onClick={() => (dispatch(addProject({
-                                        projectname: project,
+                                        projectname: projectname,
                                         developer: developer,
                                         category: category
                                         // eslint-disable-next-line

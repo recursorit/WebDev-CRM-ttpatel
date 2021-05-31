@@ -12,7 +12,7 @@ function EditProject() {
 
     const projects = useSelector(state => state.project.projects)
     const index = useSelector(state => state.project.currentIndex)
-    const [projectname, setProject] = useState(projects[index].project)
+    const [projectname, setProject] = useState(projects[index].projectname)
     const [developer, setDeveloper] = useState(projects[index].developer)
     const [category, setCategory] = useState(projects[index].category)
     const dispatch = useDispatch()
