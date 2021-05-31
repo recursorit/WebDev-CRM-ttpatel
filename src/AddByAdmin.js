@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
@@ -33,7 +33,7 @@ function Admin() {
     // const [confirmvalid, setConfirmvalid] = useState(false)
 
     const handleRegister = () => {
-        return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5) ) ?
+        return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5)) ?
             (history.push("/"), dispatch(
                 addbyadmin({
                     firstname: firstname,
@@ -98,7 +98,7 @@ function Admin() {
                     Add by Admin
         </h2>
                 <Col xs={10} md={5} lg={5} className="register justify-content-center">
-                    <Card style={{ width: "130%", height: "32rem" }}>
+                    <Card style={{ width: "130%", height: "32rem" }} className=" ">
                         <Card.Title className="fw-bold fs-2 mx-3 mt-3">New User</Card.Title>
                         {emailvalid || passwordvalid ? <Alert variant='danger'>*Please enter valid email & password .</Alert> : null}
                         <Card.Body>

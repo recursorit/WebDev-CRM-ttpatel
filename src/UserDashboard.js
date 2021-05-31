@@ -6,6 +6,7 @@ import { editAdmin, deleteUser, storeUser } from './redux/actions'
 import { BiPencil } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import Category from "./Category";
+import Project from "./Project";
 // import AddCategory from './AddCategory'
 // import EditCategory from './EditCategory'
 
@@ -67,7 +68,7 @@ const UserDashboard = () => {
       <Col xs={10} lg={12} className='table' >
         <Switch>
           <Route path='/dashboard' exact>
-            <CardGroup className=' text-dark cardstyle' style={{ width: '100%' }}>
+            <CardGroup className=' text-dark cardstyle' style={{ width: '98%' }}>
               <Card className='bg-light mt-3 mx-3 cardheight' >
                 <Card.Body >
                   <Card.Title>Number of Users</Card.Title>
@@ -161,6 +162,8 @@ const UserDashboard = () => {
           </Route>
           <Route path='/dashboard/project' exact>
             <p className='text-dark mt-3 fs-2'>Project</p>
+            {currentUserSelector.currentuser.role === 'admin' || 'user' ? <Button className='mb-3' variant="outline-dark" onClick={() => history.push('/addproject')} >Add Project</Button> : null}
+            <Project/>
           </Route>
           <Route path='/dashboard/category' exact>
             <p className='text-dark mt-3 fs-2'>Categories</p>

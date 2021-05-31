@@ -7,7 +7,7 @@ import { BsLock } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Row, Col, Button, FormControl, InputGroup, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import {  userLogin } from "./redux/actions";
+import { userLogin } from "./redux/actions";
 import { useHistory } from "react-router-dom";
 
 
@@ -66,7 +66,7 @@ function UserLogin() {
       <code className="text-center  fw-bold display-3 text-dark">
         Welcome to Login Page
       </code>
-      <Col xs={12} md={6} lg={8} className="login">
+      <Col xs={10} md={6} lg={8} className="login">
         <Card style={{ width: "100%", height: "20rem" }} className='mobile-card'>
           <Row>
             <Col xs={12} md={6} lg={6}>

@@ -98,7 +98,7 @@ function Admin() {
                     Edit
         </h2>
                 <Col xs={10} md={7} lg={5} className="register justify-content-center">
-                    <Card style={{ width: "130%", height: "31rem" }}>
+                    <Card style={{ width: "130%", height: "34rem" }}>
                         <Card.Title className="fw-bold fs-2 mx-3 mt-3">Edit</Card.Title>
                         {emailvalid || passwordvalid ? <Alert variant='danger'>*Please enter valid email & password .</Alert> : null}
                         <Card.Body>

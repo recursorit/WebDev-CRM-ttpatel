@@ -50,8 +50,8 @@ function UserRegistration() {
       <code className="text-center  fw-bold display-3 text-dark">
         Welcome to Registration Page
       </code>
-      <Col xs={12} md={7} lg={7} className="register justify-content-center">
-        <Card style={{ width: "100%", height: "32rem" }}>
+      <Col xs={11} md={7} lg={7} className="register justify-content-center">
+        <Card style={{ width: "100%", height: "35rem" }} className='regcard'>
           <Card.Title className="fw-bold fs-2 mx-3 mt-3">Register</Card.Title>
           <Card.Text className="mx-3">Create your account</Card.Text>
           {emailvalid ? <Alert variant='danger'>*Please enter valid Email-Id. .</Alert> : null}

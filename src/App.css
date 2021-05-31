@@ -29,8 +29,9 @@
       padding-left: 20rem;
     } 
   .cardstyle{
-    height: 13rem;
+    height: 8rem;
     padding-right: 100px;
+    
   }
   .dropdown{
     padding-right:35px!important;
@@ -51,7 +52,11 @@
 .register{
   padding-right:80px!important;
 }
-
+.tableone{
+  position: relative;
+  width: 80%!important;
+ right: -24px;
+}
 .dropdown{
   padding-left: 80px!important;
 }
@@ -63,5 +68,8 @@ height: 35rem!important;
 }
 .tablecategory{
 padding-left: 45px!important;
+}
+.regcard{
+  width: 120%!important;
 }
   }

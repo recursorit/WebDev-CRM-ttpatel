@@ -17,6 +17,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EditCategory from "./EditCategory";
 import Category from "./Category";
 import AddCategory from "./AddCategory";
+import Project from "./Project";
+import AddProject from "./AddProject";
+import EditProject from "./EditProject";
 function App() {
   return (
     <Switch>
@@ -46,6 +49,15 @@ function App() {
       </Route>
       <Route path="/addcategory"  >
         <AddCategory />
+      </Route>
+      <Route path="/editproject" >
+        <EditProject />
+      </Route>
+      <Route path="/project" >
+        <Project />
+      </Route>
+      <Route path="/addproject"  >
+        <AddProject />
       </Route>
     </Switch>
   );
