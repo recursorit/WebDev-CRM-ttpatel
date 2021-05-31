@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsLock } from "react-icons/bs";
@@ -29,17 +29,16 @@ function Admin() {
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmpassword, setConfirmPassword] = useState("");
-    const [confirmvalid, setConfirmvalid] = useState(false)
+    // const [confirmpassword, setConfirmPassword] = useState("");
+    // const [confirmvalid, setConfirmvalid] = useState(false)
 
     const handleRegister = () => {
-        return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5) && (password.match(confirmpassword))) ?
+        return (email.includes('@') && (email.indexOf('.') < (email.length - 2))) ? ((setEmailvalid(false), ((password.length > 5) ) ?
             (history.push("/"), dispatch(
                 addbyadmin({
                     firstname: firstname,
                     lastname: lastname,
                     email: email,
-                    confirmpassword: btoa(password),
                     password: btoa(password),
                     index: index,
                     role: role,
@@ -47,13 +46,13 @@ function Admin() {
                 })
             ), dispatch(storeUser())) : setPasswordvalid(true))) : setEmailvalid(true)
     };
-    useEffect(() => {
-        if (confirmpassword !== password) {
-            setConfirmvalid(true)
-        }
-        else setConfirmvalid(false)
-        // eslint-disable-next-line
-    }, [confirmpassword])
+    // useEffect(() => {
+    //     if (confirmpassword !== password) {
+    //         setConfirmvalid(true)
+    //     }
+    //     else setConfirmvalid(false)
+    //     // eslint-disable-next-line
+    // }, [confirmpassword])
 
     return (
         <Container fluid className='m-0 p-0'>
@@ -174,7 +173,7 @@ function Admin() {
 
                                     {/* {passwordvalid ? <Card.Text className='text-danger'>Entet valid password.</Card.Text> : null} */}
                                 </InputGroup>
-                                <InputGroup className="mb-3">
+                                {/* <InputGroup className="mb-3">
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>
                                             <BsLock size="1.5rem" />
@@ -188,7 +187,7 @@ function Admin() {
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                     />
                                 </InputGroup>
-                                {confirmvalid ? <Card.Text className='text-danger'>Enterd password does not match.</Card.Text> : null}
+                                {confirmvalid ? <Card.Text className='text-danger'>Enterd password does not match.</Card.Text> : null} */}
 
                                 <Form.Group >
                                     <Form.Label>Role-</Form.Label>

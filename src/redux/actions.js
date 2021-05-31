@@ -6,6 +6,7 @@ export const DELETE_USER = 'DELETE_USER'
 export const ADDBY_ADMIN = "ADDBY_ADMIN"
 export const STORE_USER = 'STORE_USER'
 
+
 export function registerUser(data) {
   return {
     type: "REGISTER_USER",
@@ -53,3 +54,4 @@ export const storeUser = () => {
     type: 'STORE_USER',
   }
 }
+

@@ -1,4 +1,4 @@
-import { ADDBY_ADMIN, DELETE_USER, REGISTER_USER, UPDATE_USER, STORE_USER } from "./actions";
+import { ADDBY_ADMIN, DELETE_USER, REGISTER_USER, UPDATE_USER, STORE_USER} from "./actions";
 import moment from "moment";
 
 const initialState = { users: JSON.parse(localStorage.getItem('usersList')) }
@@ -20,7 +20,6 @@ if (initialState.users == undefined) {
   ]
 
 }
-
 
 const registerReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -55,6 +54,7 @@ const registerReducer = (state = initialState, action) => {
           password: btoa(action.payload.password),
         }]
       }
+     
     case UPDATE_USER:
       return {
         ...state,

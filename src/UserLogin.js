@@ -67,7 +67,7 @@ function UserLogin() {
         Welcome to Login Page
       </code>
       <Col xs={12} md={6} lg={8} className="login">
-        <Card style={{ width: "100%", height: "20rem" }}>
+        <Card style={{ width: "100%", height: "20rem" }} className='mobile-card'>
           <Row>
             <Col xs={12} md={6} lg={6}>
               <Card.Body>

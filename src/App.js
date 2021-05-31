@@ -14,6 +14,9 @@ import EditUser from './EditUser'
 import Admin from './Admin'
 import AddByAdmin from './AddByAdmin'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import EditCategory from "./EditCategory";
+import Category from "./Category";
+import AddCategory from "./AddCategory";
 function App() {
   return (
     <Switch>
@@ -34,6 +37,15 @@ function App() {
       </Route>
       <Route path="/addbyadmin" >
         <AddByAdmin />
+      </Route>
+      <Route path="/editcategory" >
+        <EditCategory />
+      </Route>
+      <Route path="/category" >
+        <Category />
+      </Route>
+      <Route path="/addcategory"  >
+        <AddCategory />
       </Route>
     </Switch>
   );

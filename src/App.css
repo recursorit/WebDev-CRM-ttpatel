@@ -7,6 +7,9 @@
 .register {
   padding-top: 55px;
 }
+.category{
+  padding-top: 20px;
+}
 
 @media (min-width:992px) {    
   .vertical-nav {
@@ -48,7 +51,17 @@
 .register{
   padding-right:80px!important;
 }
+
 .dropdown{
   padding-left: 80px!important;
+}
+.mobile-card{
+height: 35rem!important;
+}
+.category{
+  width: 100%!important;
+}
+.tablecategory{
+padding-left: 45px!important;
 }
   }
