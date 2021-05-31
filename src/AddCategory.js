@@ -64,8 +64,8 @@ function AddCategory() {
                                             value={category} onChange={(e) => setCategory(e.target.value)} />
                                     </Col>
                                 </Form.Group>
-
                                 <Button disabled={!category}
+                                // eslint-disable-next-line
                                     onClick={() => (dispatch(addCategory(category)), history.push("/dashboard/category"))}
                                     variant="outline-dark" className="mt-3">Add category</Button>
 

@@ -33,6 +33,7 @@ function Category() {
                             <td>{category.category}</td>
                             <td>{category.date}</td>
                             <td><BiPencil
+                             // eslint-disable-next-line
                                 onClick={() => (dispatch(categoryIndex(category.index)), history.push("/editcategory"))} /></td>
                             <td><MdDelete onClick={() => setmodal(true)} /></td>
 

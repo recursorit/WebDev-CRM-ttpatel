@@ -75,6 +75,7 @@ function EditCategory() {
 
 
                                 <Button disabled={!category}
+                                 // eslint-disable-next-line
                                     onClick={() => (dispatch(updateCategory(category)), history.push("/dashboard/category"))}
                                     variant="outline-dark" className="m-4">Update category</Button>
                             </Form>

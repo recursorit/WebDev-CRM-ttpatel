@@ -164,7 +164,7 @@ const UserDashboard = () => {
           </Route>
           <Route path='/dashboard/category' exact>
             <p className='text-dark mt-3 fs-2'>Categories</p>
-            {currentUserSelector.currentuser.role === 'admin' ? <Button className='mb-3' variant="outline-dark" onClick={() => history.push('/addcategory')} >Add Category</Button> : null}
+            {currentUserSelector.currentuser.role === 'admin' || 'user' ? <Button className='mb-3' variant="outline-dark" onClick={() => history.push('/addcategory')} >Add Category</Button> : null}
             <Category />
           </Route>
         </Switch>
