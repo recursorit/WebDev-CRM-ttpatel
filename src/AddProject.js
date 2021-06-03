@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Card, Col, Container, Form, Row,NavDropdown,Nav,Navbar } from 'react-bootstrap'
+import { Button, Card, Col, Container, Form, Row, NavDropdown, Nav, Navbar } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory,Route,Switch } from 'react-router'
+import { useHistory, Route, Switch } from 'react-router'
 import { addProject } from './redux/projectAction'
 
 
@@ -10,7 +10,9 @@ const AddProject = () => {
     const [projectname, setProject] = useState("")
     const [developer, setDeveloper] = useState("")
     const [category, setCategory] = useState("")
-
+    const [type, setType] = useState('')
+    const [technology, setTechnology] = useState('')
+    const [totalworkinghrs, setTotalWorkingHrs] = useState('')
     const userList = useSelector(state => state.users.users)
     const categories = useSelector(state => state.category.categories)
 
@@ -59,8 +61,8 @@ const AddProject = () => {
                 </Switch>
             </Col>
             <Row className=" pt-2 justify-content-center">
-                <Col xs={10} lg={5} className="p-0 mt-5">
-                    <Card className="category " style={{ width: "130%", height: "28rem" }} >
+                <Col xs={10} lg={5} className="p-0">
+                    <Card className="category " style={{ width: "130%", height: "40rem" }} >
                         <Card.Body>
                             <Card.Text className="fs-2">Add Project</Card.Text>
                             <Form className="px-4">
@@ -76,7 +78,7 @@ const AddProject = () => {
 
                                 <Form.Group as={Row} >
                                     <Form.Label column sm="12" className=" ">
-                                        Developer :
+                                        Developed By :
                 </Form.Label>
                                     <Col sm="12">
 
@@ -103,12 +105,41 @@ const AddProject = () => {
                                         </Form.Control>
                                     </Col>
                                 </Form.Group>
-
-                                <Button disabled={!projectname || !developer || !category}
+                                <Form.Group as={Row} >
+                                    <Form.Label column sm="12" className=" ">
+                                        Type :
+                    </Form.Label>
+                                    <Col sm="12">
+                                        <Form.Control type="text" placeholder="IDP or UDP"
+                                            value={type} onChange={e => setType(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} >
+                                    <Form.Label column sm="12" className=" ">
+                                        Technology :
+                    </Form.Label>
+                                    <Col sm="12">
+                                        <Form.Control type="text" placeholder="Technology in which project is developed"
+                                            value={technology} onChange={e => setTechnology(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} >
+                                    <Form.Label column sm="12" className=" ">
+                                        Totoal Time:
+                    </Form.Label>
+                                    <Col sm="12">
+                                        <Form.Control type="text" placeholder="Totla time taken to build project"
+                                            value={totalworkinghrs} onChange={e => setTotalWorkingHrs(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
+                                <Button disabled={!projectname || !developer || !category || !type || !technology || !totalworkinghrs}
                                     onClick={() => (dispatch(addProject({
                                         projectname: projectname,
                                         developer: developer,
-                                        category: category
+                                        category: category,
+                                        type: type,
+                                        technology: technology,
+                                        totalworkinghrs: totalworkinghrs
                                         // eslint-disable-next-line
                                     })), history.push("/dashboard/project"))}
                                     variant="outline-dark" className="mt-3">Add Project</Button>

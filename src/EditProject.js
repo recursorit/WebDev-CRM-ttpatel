@@ -15,6 +15,9 @@ function EditProject() {
     const [projectname, setProject] = useState(projects[index].projectname)
     const [developer, setDeveloper] = useState(projects[index].developer)
     const [category, setCategory] = useState(projects[index].category)
+    const [type, setType] = useState(projects[index].type)
+    const [technology, setTechnology] = useState(projects[index].technology)
+    const [totalworkinghrs, setTotalWorkingHrs] = useState(projects[index].totalworkinghrs)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -57,8 +60,8 @@ function EditProject() {
                 </Switch>
             </Col>
             <Row className=" pt-2 justify-content-center">
-                <Col xs={10} lg={5} className="p-0 mt-5">
-                    <Card className=" rounded-0" style={{ width: "130%", height: "25rem" }} >
+                <Col xs={10} lg={5} className="p-0 mt-2">
+                    <Card className=" rounded-0" style={{ width: "130%", height: "40rem" }} >
                         <Card.Body>
                             <Card.Text className="fs-2">Edit Project</Card.Text>
                             <Form className="px-4">
@@ -84,7 +87,6 @@ function EditProject() {
                                         </Form.Control>
                                     </Col>
                                 </Form.Group>
-
                                 <Form.Group as={Row} >
                                     <Form.Label column sm="12" className="">
                                         Category :
@@ -97,12 +99,44 @@ function EditProject() {
                                         </Form.Control>
                                     </Col>
                                 </Form.Group>
+                                <Form.Group as={Row} >
+                                    <Form.Label column sm="12" className=" ">
+                                        Type :
+                    </Form.Label>
+                                    <Col sm="12">
+                                        <Form.Control type="text" placeholder="IDP or UDP"
+                                            value={type} onChange={e => setType(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} >
+                                    <Form.Label column sm="12" className=" ">
+                                        Technology :
+                    </Form.Label>
+                                    <Col sm="12">
+                                        <Form.Control type="text" placeholder="Technology in which project is developed"
+                                            value={technology} onChange={e => setTechnology(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} >
+                                    <Form.Label column sm="12" className=" ">
+                                        Totoal Time:
+                    </Form.Label>
+                                    <Col sm="12">
+                                        <Form.Control type="text" placeholder="Totla time taken to build project"
+                                            value={totalworkinghrs} onChange={e => setTotalWorkingHrs(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
 
-                                <Button disabled={!category || !projectname || !developer}
+
+
+                                <Button disabled={!category || !projectname || !developer || !type || !technology || !totalworkinghrs}
                                     onClick={() => (dispatch(updateProject({
                                         projectname: projectname,
                                         developer: developer,
-                                        category: category
+                                        category: category,
+                                        type: type,
+                                        technology: technology,
+                                        totalworkinghrs: totalworkinghrs
                                         // eslint-disable-next-line
                                     })), history.push("/dashboard/project"))}
                                     variant="outline-dark" className="mt-3">Update Project</Button>

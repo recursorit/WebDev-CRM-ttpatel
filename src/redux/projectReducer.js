@@ -6,8 +6,11 @@ const initialState = {
     projects: [
         {
             projectname: "CRM",
-            developer: "Recursor IT",
+            developer: "Recursor IT Solutions",
             category: "Bussiness",
+            type: 'IDP',
+            totalworkinghrs: 50,
+            technology: 'reactjs',
             created: moment().format('YYYY-MM-DD'),
             index: 0
         }
@@ -25,6 +28,9 @@ const projectReducer = (state = initialState, action) => {
                     projectname: action.payload.projectname,
                     developer: action.payload.developer,
                     category: action.payload.category,
+                    type: action.payload.type,
+                    totalworkinghrs: action.payload.totalworkinghrs,
+                    technology: action.payload.technology,
                     created: moment().format('YYYY-MM-DD'),
                     index: state.projects.length
                 }]
@@ -46,6 +52,9 @@ const projectReducer = (state = initialState, action) => {
                             projectname: action.payload.projectname,
                             developer: action.payload.developer,
                             category: action.payload.category,
+                            type: action.payload.type,
+                            totalworkinghrs: action.payload.totalworkinghrs,
+                            technology: action.payload.technology,
                             created: moment().format('YYYY-MM-DD'),
                             index: state.currentIndex
                         }

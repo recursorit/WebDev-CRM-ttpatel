@@ -20,6 +20,7 @@ import AddCategory from "./AddCategory";
 import Project from "./Project";
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
+import Action from './Action'
 function App() {
   return (
     <Switch>
@@ -37,6 +38,9 @@ function App() {
       </Route>
       <Route path="/admin" >
         <Admin />
+      </Route>
+      <Route path="/action" >
+        <Action />
       </Route>
       <Route path="/addbyadmin" >
         <AddByAdmin />

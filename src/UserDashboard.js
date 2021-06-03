@@ -7,6 +7,7 @@ import { BiPencil } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import Category from "./Category";
 import Project from "./Project";
+
 // import AddCategory from './AddCategory'
 // import EditCategory from './EditCategory'
 
@@ -24,7 +25,7 @@ const UserDashboard = () => {
   const [modal, setModal] = useState(false)
   let userList = useSelector((state) => state.users.users);
   let categories = useSelector(state => state.category.categories)
-
+  let project = useSelector(state => state.project.projects)
 
   // const index = useSelector(state => state.index.currentuser)
   // const index = userList.findIndex(obj => obj.email === currentUserSelector.currentuser.email)
@@ -41,7 +42,7 @@ const UserDashboard = () => {
     <Container fluid className='m-0 p-0'>
       <Navbar className=" bg-dark  p-3" expand='lg'>
         <Navbar.Brand className="text-info fs-4 px-3" href="/dashboard"> Welcome to Dashboard</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" variant='danger' />
         <Navbar.Collapse className="justify-content-end">
           <Nav className=" mr-auto flex-column vertical-nav text-center fs-5 active" variant='tabs' defaultActiveKey='/dashboard' activeKey="/dashboard">
 
@@ -50,6 +51,7 @@ const UserDashboard = () => {
             {/*  <Nav.Link onClick={() => history.push(`/dashboard/${currentUserSelector.currentuser.email}`)} className='text-light'>Users</Nav.Link> */}
             <Nav.Link onClick={() => history.push(`/dashboard/project`)} className='text-light'>Project</Nav.Link>
             <Nav.Link onClick={() => history.push(`/dashboard/category`)} className='text-light' >Category</Nav.Link>
+            {/* <Nav.Link onClick={() => history.push(`/action`)} className='text-light' >Action</Nav.Link> */}
 
           </Nav>
           <Row>
@@ -78,13 +80,13 @@ const UserDashboard = () => {
               <Card className='bg-light mt-3 mx-3  cardheight' >
                 <Card.Body>
                   <Card.Title>Number of Projects</Card.Title>
-                  <Card.Text>1</Card.Text>
+                  <Card.Text>{project.length}</Card.Text>
                 </Card.Body>
               </Card>
               <Card className='bg-light mt-3 mx-3 cardheight'>
                 <Card.Body>
-                  <Card.Title>Total Category-{categories.length}</Card.Title>
-                  <Card.Text>1</Card.Text>
+                  <Card.Title>Total Category</Card.Title>
+                  <Card.Text>{categories.length}</Card.Text>
                 </Card.Body>
               </Card>
             </CardGroup>
@@ -109,7 +111,7 @@ const UserDashboard = () => {
                     <tr key={user.index}>
                       <td>{user.firstname} {user.lastname}</td>
                       <td>{user.email}</td>
-                      <td>{user.registrationDate}</td>
+                      <td>{user.registrationDate}{user.registrationTime}</td>
                       <td>{user.role}</td>
                       <td>{user.status}</td>
                       { currentUserSelector.currentuser.role === 'admin' ? <td><BiPencil onClick={() => { return (history.push(`/admin`), dispatch(editAdmin(user.index))) }} /></td> : null}
@@ -139,6 +141,7 @@ const UserDashboard = () => {
                     <th> Name</th>
                     <th>Email</th>
                     <th>DOJ</th>
+                    {/* <th>Role</th> */}
                     <th>Status</th>
                     <th>Edit</th>
                   </tr>
@@ -147,12 +150,13 @@ const UserDashboard = () => {
                   {userList.map(user => {
                     return (
                       <tr key={user.index}>
-                        <td>{user.firstname} {user.lastname}</td>
-                        <td>{user.email}</td>
-                        <td>{user.registrationDate}</td>
+                        {user.role === 'user' ? <td>{user.firstname} {user.lastname}</td> : null}
+                        {user.role === 'user' ? <td>{user.email}</td> : null}
+                        {user.role === 'admin' ? null : <td>{user.registrationDate}</td>}
+                        {/* {user.role === 'admin' ? null : <td>{user.role}</td>} */}
                         {/* {currentUserSelector.currentuser.role === 'admin' ? <td>{user.role}</td> : 'user'} */}
-                        <td>{user.status}</td>
-                        {currentUserSelector.currentuser.role === 'user' ? <td><BiPencil onClick={() => { return (history.push(`/admin`), dispatch(editAdmin(user.index))) }} /></td> : null}
+                        {user.role === 'admin' ? null : <td>{user.status}</td>}
+                        {user.role === 'user' ? <td><BiPencil onClick={() => { return (history.push(`/admin`), dispatch(editAdmin(user.index))) }} /></td> : null}
                       </tr>)
                   })}
                 </tbody>
@@ -162,8 +166,8 @@ const UserDashboard = () => {
           </Route>
           <Route path='/dashboard/project' exact>
             <p className='text-dark mt-3 fs-2'>Project</p>
-            {currentUserSelector.currentuser.role === 'admin' || 'user' ? <Button className='mb-3' variant="outline-dark" onClick={() => history.push('/addproject')} >Add Project</Button> : null}
-            <Project/>
+            {currentUserSelector.currentuser.role === 'admin' ? <Button className='mb-3' variant="outline-dark" onClick={() => history.push('/addproject')} >Add Project</Button> : null}
+            <Project />
           </Route>
           <Route path='/dashboard/category' exact>
             <p className='text-dark mt-3 fs-2'>Categories</p>

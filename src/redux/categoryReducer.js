@@ -6,17 +6,22 @@ const initialState = {
         {
             category: 'HealthCare',
             date: moment().format('YYYY-MM-DD'),
-            index: 0
+            index: 0,
         },
         {
             category: 'Bussiness',
             date: moment().format('YYYY-MM-DD'),
-            index: 1
+            index: 1,
         },
         {
             category: 'Aviation',
             date: moment().format('YYYY-MM-DD'),
-            index: 2
+            index: 2,
+        },
+        {
+            category: 'Hospitality',
+            date: moment().format('YYYY-MM-DD'),
+            index: 3,
         },
     ],
     currentIndex: 0
